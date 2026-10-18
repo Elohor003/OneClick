@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111111">
+<meta name="description" content="Free everyday tools for calculations, writing, planning and conversions, all in one place.">
+<title>ONECLICK — Everyday Tools</title>
+<style>
+:root {
+--bg: #f7f6f2;
+--card: #ffffff;
+--ink: #171717;
+--muted: #737373;
+--accent: #d7ff64;
+--line: #e8e7e1;
+}
+
+* { box-sizing: border-box; }
+
+body {
+margin: 0;
+font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+background: var(--bg);
+color: var(--ink);
+}
+
+header {
+background: #111;
+color: white;
+padding: 22px max(6%, calc((100% - 1100px) / 2));
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 16px;
+}
+
+.logo { font-size: 25px; font-weight: 900; letter-spacing: -1.5px; }
+.logo span { color: var(--accent); }
+header a { color: #ddd; text-decoration: none; font-size: 14px; }
+
+main { max-width: 1100px; margin: auto; padding: 56px 22px; }
+
+.hero { max-width: 720px; margin-bottom: 35px; }
+.eyebrow {
+display: inline-block;
+background: var(--accent);
+padding: 8px 12px;
+border-radius: 30px;
+font-size: 12px;
+font-weight: 800;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+
+h1 {
+font-size: clamp(42px, 7vw, 72px);
+line-height: 1.02;
+letter-spacing: -4px;
+margin: 22px 0 16px;
+}
+
+h1 span { color: #777; }
+.hero p { color: var(--muted); font-size: 17px; line-height: 1.7; }
+
+.search {
+display: flex;
+gap: 10px;
+margin: 28px 0;
+max-width: 600px;
+}
+
+input, textarea, select, button {
+font: inherit;
+}
+
+.search input {
+flex: 1;
+min-width: 0;
+border: 1px solid var(--line);
+border-radius: 12px;
+padding: 15px;
+background: white;
+}
+
+button {
+border: 0;
+cursor: pointer;
+border-radius: 10px;
+padding: 12px 16px;
+background: var(--ink);
+color: white;
+font-weight: 700;
+}
+
+button:hover { opacity: .85; }
+
+.section-heading {
+display: flex;
+align-items: end;
+justify-content: space-between;
+gap: 12px;
+margin: 42px 0 18px;
+}
+
+h2 { margin: 0; font-size: 24px; letter-spacing: -1px; }
+.section-heading p { margin: 0; color: var(--muted); font-size: 13px; }
+
+.grid {
+display: grid;
+grid-template-columns: repeat(3, minmax(0, 1fr));
+gap: 16px;
+}
+
+.tool {
+background: var(--card);
+border: 1px solid var(--line);
+border-radius: 18px;
+padding: 23px;
+min-width: 0;
+}
+
+.tool-icon {
+width: 44px;
+height: 44px;
+border-radius: 13px;
+background: var(--accent);
+display: grid;
+place-items: center;
+font-size: 22px;
+margin-bottom: 20px;
+}
+
+.tool h3 { margin: 0 0 8px; font-size: 18px; }
+.tool p { color: var(--muted); font-size: 14px; line-height: 1.5; min-height: 42px; }
+.tool button { width: 100%; margin-top: 8px; }
+
+.panel {
+display: none;
+margin-top: 22px;
+padding: 24px;
+background: white;
+border: 1px solid var(--line);
+border-radius: 18px;
+}
+
+.panel.active { display: block; }
+.panel h2 { margin-bottom: 18px; }
+.fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.fields label { display: grid; gap: 7px; font-size: 13px; font-weight: 700; }
+.fields input, .fields select, .panel textarea {
+width: 100%;
+padding: 12px;
+border: 1px solid var(--line);
+border-radius: 9px;
+background: #fff;
+}
+
+.panel textarea { min-height: 120px; resize: vertical; margin: 10px 0; }
+.result { margin-top: 15px; padding: 14px; background: #f3f5eb; border-radius: 10px; line-height: 1.6; overflow-wrap: anywhere; }
+.muted { color: var(--muted); font-size: 13px; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.actions button.secondary { background: #ededed; color: #111; }
+
+footer { text-align: center; color: var(--muted); padding: 35px 20px; font-size: 13px; }
+
+@media (max-width: 750px) {
+main { padding-top: 38px; }
+.grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+h1 { letter-spacing: -2.5px; }
+.section-heading { align-items: start; flex-direction: column; }
+}
+
+@media (max-width: 480px) {
+.grid { grid-template-columns: 1fr; }
+.fields { grid-template-columns: 1fr; }
+.search { flex-direction: column; }
+header { padding: 18px; }
+main { padding-left: 16px; padding-right: 16px; }
+.tool { padding: 19px; }
+}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">ONE<span>CLICK</span></div>
+<a href="#tools">Explore tools ↘</a>
+</header>
+
+<main>
+<section class="hero">
+<span class="eyebrow">Everyday tools. One destination.</span>
+<h1>Small tasks.<br><span>Made simpler.</span></h1>
+<p>Useful tools for everyday life, gathered in one place. Calculate, organize and work with text without the hassle.</p>
+<div class="search">
+<input id="search" type="search" placeholder="Find a tool, e.g. discount..." aria-label="Search tools">
+<button onclick="filterTools()">Find tools</button>
+</div>
+</section>
+
+<section id="tools">
+<div class="section-heading">
+<h2>Explore your tools</h2>
+<p id="tool-count">6 simple tools to get started</p>
+</div>
+
+<div class="grid" id="tool-grid">
+<article class="tool" data-search="discount calculator percentage sale savings price">
+<div class="tool-icon">％</div>
+<h3>Discount calculator</h3>
+<p>Find the sale price and how much money you save.</p>
+<button onclick="openTool('discount')">Calculate discount</button>
+</article>
+
+<article class="tool" data-search="percentage calculator percent maths math">
+<div class="tool-icon">＋</div>
+<h3>Percentage calculator</h3>
+<p>Work out a percentage of any number in seconds.</p>
+<button onclick="openTool('percent')">Calculate percentage</button>
+</article>
+
+<article class="tool" data-search="word counter text characters writing">
+<div class="tool-icon">Aa</div>
+<h3>Word counter</h3>
+<p>Count words, characters and sentences in your text.</p>
+<button onclick="openTool('words')">Count my text</button>
+</article>
+
+<article class="tool" data-search="unit converter length distance kilometres miles kg pounds">
+<div class="tool-icon">↔</div>
+<h3>Unit converter</h3>
+<p>Convert common lengths, weights and temperatures.</p>
+<button onclick="openTool('convert')">Convert units</button>
+</article>
+
+<article class="tool" data-search="budget planner money expenses spending">
+<div class="tool-icon">$</div>
+<h3>Simple budget</h3>
+<p>Compare your income with expenses and see what's left.</p>
+<button onclick="openTool('budget')">Plan my budget</button>
+</article>
+
+<article class="tool" data-search="daily planner schedule tasks checklist productivity">
+<div class="tool-icon">✓</div>
+<h3>Daily planner</h3>
+<p>Make a simple list of the things you want to do today.</p>
+<button onclick="openTool('planner')">Plan my day</button>
+</article>
+</div>
+
+<div id="panel" class="panel" aria-live="polite">
+<div id="panel-content"></div>
+</div>
+</section>
+</main>
+
+<footer>ONECLICK · Everyday tools, all in one place.</footer>
+
+<script>
+const panel = document.getElementById('panel');
+const content = document.getElementById('panel-content');
+
+function showPanel(title, html) {
+content.innerHTML = '<h2>' + title + '</h2>' + html;
+panel.classList.add('active');
+panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function openTool(tool) {
+if (tool === 'discount') {
+showPanel('Discount calculator', `
+<div class="fields">
+<label>Original price ($)<input id="price" type="number" min="0" placeholder="100"></label>
+<label>Discount (%)<input id="discount-rate" type="number" min="0" max="100" placeholder="20"></label>
+</div>
+<div class="actions"><button onclick="calcDiscount()">Calculate</button></div>
+<div id="result"></div>`);
+}
+
+if (tool === 'percent') {
+showPanel('Percentage calculator', `
+<div class="fields">
+<label>Percentage (%)<input id="rate" type="number" placeholder="15"></label>
+<label>Number<input id="number" type="number" placeholder="200"></label>
+</div>
+<div class="actions"><button onclick="calcPercent()">Calculate</button></div>
+<div id="result"></div>`);
+}
+
+if (tool === 'words') {
+showPanel('Word counter', `
+<label for="text-input">Paste or type your text</label>
+<textarea id="text-input" placeholder="Start writing here..." oninput="countWords()"></textarea>
+<div id="result" class="result">Words: 0 · Characters: 0 · Sentences: 0</div>`);
+}
+
+if (tool === 'convert') {
+showPanel('Unit converter', `
+<div class="fields">
+<label>Convert from<select id="from"><option value="km">Kilometres</option><option value="mi">Miles</option><option value="kg">Kilograms</option><option value="lb">Pounds</option><option value="c">Celsius</option><option value="f">Fahrenheit</option></select></label>
+<label>Convert to<select id="to"><option value="mi">Miles</option><option value="km">Kilometres</option><option value="lb">Pounds</option><option value="kg">Kilograms</option><option value="f">Fahrenheit</option><option value="c">Celsius</option></select></label>
+<label>Value<input id="value" type="number" placeholder="Enter a number"></label>
+</div>
+<div class="actions"><button onclick="convertUnit()">Convert</button></div>
+<div id="result"></div>`);
+}
+
+if (tool === 'budget') {
+showPanel('Simple budget', `
+<div class="fields">
+<label>Total income ($)<input id="income" type="number" min="0" placeholder="2500"></label>
+<label>Total expenses ($)<input id="expenses" type="number" min="0" placeholder="1800"></label>
+</div>
+<div class="actions"><button onclick="calcBudget()">Calculate balance</button></div>
+<div id="result"></div>`);
+}
+
+if (tool === 'planner') {
+showPanel('Daily planner', `
+<p class="muted">Add a task and tick it off when you're done.</p>
+<div class="search">
+<input id="task-input" placeholder="What do you need to do?">
+<button onclick="addTask()">Add task</button>
+</div>
+<ul id="task-list"></ul>`);
+}
+}
+
+function showResult(message) {
+document.getElementById('result').innerHTML = '<div class="result">' + message + '</div>';
+}
+
+function getNumber(id) {
+const value = document.getElementById(id).value.trim();
+return value === '' ? NaN : Number(value);
+}
+
+function money(value) {
+return value.toLocaleString(undefined, { style: 'currency', currency: 'CAD' });
+}
+
+function calcDiscount() {
+const price = getNumber('price');
+const rate = getNumber('discount-rate');
+if (!Number.isFinite(price) || !Number.isFinite(rate) || price < 0 || rate < 0 || rate > 100) {
+showResult('Enter a valid price and a discount between 0 and 100%.');
+return;
+}
+showResult('Sale price: <strong>' + money(price * (1 - rate / 100)) + '</strong><br>You save: ' + money(price * rate / 100));
+}
+
+function calcPercent() {
+const rate = getNumber('rate');
+const number = getNumber('number');
+if (!Number.isFinite(rate) || !Number.isFinite(number)) {
+showResult('Enter both a percentage and a number.');
+return;
+}
+showResult(rate + '% of ' + number + ' = <strong>' + (rate * number / 100).toLocaleString(undefined, { maximumFractionDigits: 6 }) + '</strong>');
+}
+
+function countWords() {
+const text = document.getElementById('text-input').value;
+const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+const sentences = text.trim() ? (text.match(/[.!?]+(?=\s|$)/g) || []).length : 0;
+document.getElementById('result').textContent = 'Words: ' + words + ' · Characters: ' + text.length + ' · Sentences: ' + sentences;
+}
+
+function convertUnit() {
+const from = document.getElementById('from').value;
+const to = document.getElementById('to').value;
+const value = getNumber('value');
+if (!Number.isFinite(value)) {
+showResult('Enter a value to convert.');
+return;
+}
+
+const units = {
+km: { group: 'length', factor: 1 },
+mi: { group: 'length', factor: 1.609344 },
+kg: { group: 'weight', factor: 1 },
+lb: { group: 'weight', factor: 0.45359237 }
+};
+
+let result;
+if (from === to) result = value;
+else if (units[from] && units[to] && units[from].group === units[to].group) {
+result = value * units[from].factor / units[to].factor;
+} else if (from === 'c' && to === 'f') result = value * 9 / 5 + 32;
+else if (from === 'f' && to === 'c') result = (value - 32) * 5 / 9;
+else {
+showResult('Choose compatible units, such as kilometres and miles, kilograms and pounds, or Celsius and Fahrenheit.');
+return;
+}
+
+showResult('<strong>' + result.toLocaleString(undefined, { maximumFractionDigits: 4 }) + '</strong>');
+}
+
+function calcBudget() {
+const income = getNumber('income');
+const expenses = getNumber('expenses');
+if (!Number.isFinite(income) || !Number.isFinite(expenses) || income < 0 || expenses < 0) {
+showResult('Enter valid, non-negative income and expense amounts.');
+return;
+}
+const balance = income - expenses;
+showResult('Money remaining: <strong>' + money(balance) + '</strong><br>' + (balance < 0 ? 'Your expenses exceed your income.' : 'This is the amount left after expenses.'));
+}
+
+function addTask() {
+const input = document.getElementById('task-input');
+const task = input.value.trim();
+if (!task) return;
+
+const item = document.createElement('li');
+const checkbox = document.createElement('input');
+checkbox.type = 'checkbox';
+checkbox.style.marginRight = '8px';
+
+const label = document.createElement('label');
+label.append(checkbox, document.createTextNode(task));
+checkbox.addEventListener('change', () => {
+label.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
+});
+
+item.appendChild(label);
+document.getElementById('task-list').appendChild(item);
+input.value = '';
+input.focus();
+}
+
+function filterTools() {
+const query = document.getElementById('search').value.trim().toLowerCase();
+let count = 0;
+
+document.querySelectorAll('.tool').forEach(card => {
+const match = (card.innerText + ' ' + card.dataset.search).toLowerCase().includes(query);
+card.style.display = match ? '' : 'none';
+if (match) count++;
+});
+
+document.getElementById('tool-count').textContent = count + (count === 1 ? ' tool found' : ' tools found');
+}
+
+document.getElementById('search').addEventListener('keydown', event => {
+if (event.key === 'Enter') filterTools();
+});
+</script>
+</body>
+</html>
