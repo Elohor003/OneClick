@@ -386,6 +386,23 @@ padding: 13px 16px;
 <div class="logo">ONE<span>CLICK</span></div>
 <a href="#tools">Explore tools ↘</a>
 </header>
+<section id="account" style="max-width:500px;margin:35px auto;padding:25px;border:1px solid #ddd;border-radius:18px;">
+<h2>Welcome to ONECLICK</h2>
+<p>Sign in or create a free account to save your work.</p>
+
+<label for="account-email">Email address</label>
+<input id="account-email" type="email" placeholder="you@example.com" autocomplete="email" required style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 16px;">
+
+<label for="account-password">Password</label>
+<input id="account-password" type="password" placeholder="At least 6 characters" autocomplete="current-password" required style="display:block;width:100%;box-sizing:border-box;padding:12px;margin:8px 0 16px;">
+
+<button type="button" onclick="oneClickSignUp()">Create account</button>
+<button type="button" onclick="oneClickSignIn()">Sign in</button>
+<button type="button" onclick="oneClickSignOut()">Sign out</button>
+
+<p id="account-message" role="status" aria-live="polite"></p>
+</section>
+
 
 <main>
 <section class="hero">
@@ -655,6 +672,75 @@ const oneClickSupabase = window.supabase.createClient(
 ONECLICK_SUPABASE_URL,
 ONECLICK_SUPABASE_KEY
 );
+</script>
+
+Valerie O <omuatisev@gmail.com>
+1:49 AM (0 minutes ago)
+to me
+
+
+<script>
+async function oneClickSignUp() {
+const email = document.getElementById('account-email').value.trim();
+const password = document.getElementById('account-password').value;
+const message = document.getElementById('account-message');
+
+if (!email || !password) {
+message.textContent = 'Please enter your email and password.';
+return;
+}
+
+if (password.length < 6) {
+message.textContent = 'Your password must be at least 6 characters.';
+return;
+}
+
+message.textContent = 'Creating your account...';
+
+const { data, error } = await oneClickSupabase.auth.signUp({
+email,
+password
+});
+
+if (error) {
+message.textContent = error.message;
+} else if (data.session) {
+message.textContent = 'Account created! You are signed in.';
+} else {
+message.textContent = 'Account created! Check your email to confirm your account.';
+}
+}
+
+async function oneClickSignIn() {
+const email = document.getElementById('account-email').value.trim();
+const password = document.getElementById('account-password').value;
+const message = document.getElementById('account-message');
+
+if (!email || !password) {
+message.textContent = 'Please enter your email and password.';
+return;
+}
+
+message.textContent = 'Signing in...';
+
+const { error } = await oneClickSupabase.auth.signInWithPassword({
+email,
+password
+});
+
+message.textContent = error
+? error.message
+: 'You are signed in to ONECLICK!';
+}
+
+async function oneClickSignOut() {
+const message = document.getElementById('account-message');
+const { error } = await oneClickSupabase.auth.signOut();
+
+message.textContent = error
+? error.message
+: 'You have signed out.';
+}
 </script>
 </body>
 </html>
