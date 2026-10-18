@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -645,6 +646,15 @@ document.getElementById('tool-count').textContent = count + (count === 1 ? ' too
 document.getElementById('search').addEventListener('keydown', event => {
 if (event.key === 'Enter') filterTools();
 });
+</script>
+<script>
+const ONECLICK_SUPABASE_URL = 'https://osoloqvyjksgcxralsop.supabase.co';
+const ONECLICK_SUPABASE_KEY = 'sb_publishable_l4PUntlr8z3y0hV478iZOA_7hQH9ZzV';
+
+const oneClickSupabase = window.supabase.createClient(
+ONECLICK_SUPABASE_URL,
+ONECLICK_SUPABASE_KEY
+);
 </script>
 </body>
 </html>
