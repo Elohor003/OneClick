@@ -1,0 +1,5 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://elohor003.github.io/OneClick/sitemap.xml
